@@ -1,0 +1,6 @@
+[package]
+name = "sumowatch"
+version = "0.1.0"
+authors = ["Bob Zoller <bob@zoller.us>"]
+
+[dependencies]
