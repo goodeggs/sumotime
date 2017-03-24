@@ -6,3 +6,4 @@ authors = ["Bob Zoller <bob@zoller.us>"]
 [dependencies]
 getopts = "*"
 wait-timeout = "*"
+version = "*"

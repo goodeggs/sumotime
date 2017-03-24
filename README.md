@@ -7,10 +7,13 @@ Releasing
 ===========
 
 ```
-$ brew install goodeggs/delivery-eng/ghr goodeggs/delivery-eng/gitsem FiloSottile/musl-cross/musl-cross
+$ brew install goodeggs/delivery-eng/ghr FiloSottile/musl-cross/musl-cross
 $ curl https://sh.rustup.rs -sSf | sh
 $ rustup target add x86_64-unknown-linux-musl
-$ gitsem {patch,minor,major}
+$ # update version in Cargo.toml
+$ git add Cargo.toml
+$ git commit -m 'vX.X.X'
+$ git tag -am vX.X.X vX.X.X
 $ git push
 $ GITHUB_TOKEN="FIXME" ./release.sh
 ```

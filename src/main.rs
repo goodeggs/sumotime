@@ -1,5 +1,7 @@
 extern crate getopts;
 extern crate wait_timeout;
+#[macro_use]
+extern crate version;
 
 use std::process;
 use std::process::Command;
@@ -14,18 +16,34 @@ fn main() {
   let program = args[0].clone();
 
   let mut opts = Options::new();
-  opts.reqopt("k", "key", "timing key", "KEY");
+  opts.optopt("k", "key", "timing key (required)", "KEY");
   opts.optopt("t", "timeout", "optional timeout in seconds, after which we'll SIGKILL", "TIMEOUT");
+  opts.optflag("v", "version", "print the version");
   opts.optflag("h", "help", "print this help menu");
   let matches = match opts.parse(&args[1..]) {
     Ok(m) => { m }
-    Err(f) => { panic!(f.to_string()) }
+    Err(f) => {
+      print!("{}", f.to_string());
+      process::exit(1);
+    }
   };
+
+  if matches.opt_present("v") {
+    print!("{}\n", version!());
+    return;
+  }
 
   if matches.opt_present("h") {
     let brief = format!("Usage: {} [options]", program);
     print!("{}", opts.usage(&brief));
     return;
+  }
+
+  if !matches.opt_present("k") {
+    print!("ERROR: -k/--key is required\n\n");
+    let brief = format!("Usage: {} [options]", program);
+    print!("{}", opts.usage(&brief));
+    process::exit(1);
   }
 
   let key = matches.opt_str("k").unwrap();
