@@ -1,6 +1,10 @@
 language: rust
 rust: stable
 
+env:
+  global:
+  - PATH="/tmp/ci-tools:$PATH"
+
 cache:
   directories:
     - /tmp/ci-tools
