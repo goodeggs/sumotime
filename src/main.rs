@@ -76,7 +76,7 @@ fn main() {
 
   let now = SystemTime::now();
 
-  let mut child = Command::new(command).args(&args).spawn().unwrap();
+  let mut child = Command::new(command).args(args).spawn().unwrap();
   
   if matches.opt_present("t") {
     let timeout = matches.opt_str("t").unwrap().parse::<u64>().unwrap();
