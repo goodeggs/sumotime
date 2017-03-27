@@ -7,3 +7,5 @@ authors = ["Bob Zoller <bob@zoller.us>"]
 getopts = "*"
 wait-timeout = "*"
 version = "*"
+hyper = "*"
+hyper-native-tls = "*"
