@@ -1,0 +1,14 @@
+language: rust
+rust: stable
+
+cache:
+  directories:
+    - /tmp/ci-tools
+
+install:
+  - curl -sSL https://github.com/goodeggs/travis-utils/raw/ci-tools/install-ci-tools.sh | CACHE_DIR=/tmp/ci-tools sh -s -- node=6.10.1
+
+script:
+  - cargo build --verbose
+  - cd test && sh test.sh
+
