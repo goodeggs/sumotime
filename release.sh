@@ -13,7 +13,7 @@ cargo build --release --target=x86_64-apple-darwin
 ( cd target/x86_64-apple-darwin/release && cp sumotime "${releasedir}/sumotime-Darwin-x86_64" )
 
 echo "building for Linux-x86_64"
-cargo build --release --target=x86_64-unknown-linux-musl
+docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder cargo build --release
 ( cd target/x86_64-unknown-linux-musl/release && cp sumotime "${releasedir}/sumotime-Linux-x86_64" )
 
 echo "releasing v${version}..."
