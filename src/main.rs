@@ -98,7 +98,7 @@ fn main() {
 
 fn finalize(url: String, key: String, exit_code: i32, was_timeout: bool, started_at: SystemTime) {
   let duration = started_at.elapsed().unwrap().as_secs();
-  let body = format!("sumotime key={} code={} timeout={} duration={}", key, exit_code, was_timeout, duration);
+  let body = format!(r#"{{"msg":"sumotime","key":"{}","code":{},"timeout":{},"duration":{}}}"#, key, exit_code, was_timeout, duration);
 
   let ssl = NativeTlsClient::new().unwrap();
   let connector = HttpsConnector::new(ssl);
@@ -106,8 +106,8 @@ fn finalize(url: String, key: String, exit_code: i32, was_timeout: bool, started
   match client
     .post(url.as_str())
     .body(&body)
-    .header(ContentType::plaintext())
-    .header(Accept::text())
+    .header(ContentType::json())
+    .header(Accept::json())
     .send() {
     Ok(mut res) => {
       if !res.status.is_success() {
