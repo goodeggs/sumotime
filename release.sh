@@ -3,7 +3,7 @@ set -e
 set -o pipefail
 #set -x
 
-version=$(cat VERSION)
+version=$(grep '^version\b' Cargo.toml | head -n1 | awk -F'"' '{print $2}')
 releasedir="${PWD}/releases/${version}"
 
 rm -rf "$releasedir" && mkdir -p "$releasedir"
