@@ -1,6 +1,6 @@
 [package]
 name = "sumotime"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Bob Zoller <bob@zoller.us>"]
 
 [dependencies]
