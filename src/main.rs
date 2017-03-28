@@ -19,6 +19,10 @@ use hyper_native_tls::NativeTlsClient;
 
 fn main() {
 
+  // fix musl openssl certificate issue
+  #[cfg(target_os = "linux")]
+  fix_musl_openssl();
+
   let args: Vec<String> = env::args().collect();
   let program = args[0].clone();
 
@@ -124,3 +128,8 @@ fn finalize(url: String, key: String, exit_code: i32, was_timeout: bool, started
   process::exit(exit_code);
 }
  
+#[allow(dead_code)]
+fn fix_musl_openssl() {
+  env::set_var("SSL_CERT_FILE", "/etc/ssl/certs/ca-certificates.crt");
+  env::set_var("SSL_CERT_DIR", "/etc/ssl/certs");
+}
